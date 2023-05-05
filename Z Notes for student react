@@ -1,1 +1,76 @@
-
+-------------------------------------------------------------------------------------------------------------------------------------------
+         
+         in function ====> const [name, setName] = useState("");
+         
+         <div>
+           <label>Student Name</label>
+             <input  type="text" class="form-control" id="name"
+             value={name}                   
+             onChange={(event) =>
+               {
+                 setName(event.target.value);      //
+                                                   <div>
+                                                   
+       value={name}   ===>    sets the current value of the input field to the name state variable                                      
+   onChange={(event) =>{    setName(event.target.value); }} ===>    is an event listener that triggers when the value of the input field changes. It sets the name state variable to the new value of the input field.
+   .setName(event.target.value) is called with the new value as its argument, which updates the name state variable with the new value.
+   -------------------------------------------------------------------------------------------------------------------------------------------------
+   similar to  id ,add, mobile
+   -----------------------------------------------------------------------------------------------------------------------------------------------------
+useEffect(() => {
+  (async () => await Load())();
+  }, []);
+1)useEffect is a React hook that allows us to perform side effects (such as fetching data or updating the DOM) in a functional component.
+2)The arrow function (async () => await Load()) is the callback function that will be executed when the component mounts or when its
+dependencies change (we'll come back to the empty dependency array in a moment).
+3) useEffect hook that executes an asynchronous function called Load when the component mounts. The Load function might fetch data 
+from an API or perform some other asynchronous operation. By using useEffect, we can ensure that our component
+displays the correct data after the asynchronous operation completes, without causing unnecessary re-renders of the component.
+------------------------------------------------------------------------------------------------------------------------------------------------
+const [students, setUsers] = useState([]);
+useState([]) is a React hook that defines a state variable called students and a function to update it called setUsers.
+The initial value of students is an empty array ([]).
+---------------------------------------------------------------------------------------------------------------------------------------------------
+  async function  Load()
+  {
+     const result = await axios.get(
+         "http://localhost:8080/student/getall");
+         setUsers(result.data);
+         console.log(result.data);
+  }
+  
+  1)async function Load() defines an asynchronous function called Load.
+  2)axios.get("http://localhost:8080/student/getall") sends an HTTP GET request to the specified URL (http://localhost:8080/student/getall) using the Axios library. 
+  The await keyword is used to wait for the response to come back before continuing execution of the function.axios.get("http://localhost:8080/student/getall") 
+  sends an HTTP GET request to the specified URL (http://localhost:8080/student/getall) using the Axios library.
+  The await keyword is used to wait for the response to come back before continuing execution of the function.
+  3)result contains the response data returned by the API.
+  4)setUsers(result.data) updates the users state variable with the data returned by the API. This will cause the component to re-render with the updated data.
+  -----------------------------------------------------------------------------------------------------------------------------------------
+      async function save(event)
+    {
+        event.preventDefault();
+    try
+        {
+         await axios.post("http://localhost:8080/student/save",
+        {
+          name: name,
+        add: add,
+        mobile: mobile
+        });
+          alert("Student Registation Successfully");
+          setId("");
+          setName("");
+          setAdd("");
+          setMobile("");
+          Load();
+        }
+    catch(err)
+        {
+          alert("User Registation Failed");
+        }
+   }
+ 
+ 
+ =========
+ 1)event.preventDefault() prevents the default form submission behavior of refreshing the page.
